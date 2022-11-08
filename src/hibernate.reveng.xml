@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-schema="OPS$DESINV02"/>
+  <table-filter match-name="INV06_DAT"/>
+  <table-filter match-name="INV01_DAT"/>
+  <table-filter match-name="INV07_DAT"/>
+  <table-filter match-name="INV03_DAT"/>
+  <table-filter match-name="TABLA01_DAT"/>
+  <table-filter match-name="INV04_DAT"/>
+  <table-filter match-name="INV08_DAT"/>
+  <table-filter match-name="TABLA02_DAT"/>
+  <table-filter match-name="INV02_DAT"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-oct-2014 12:18:57 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="entidad.Guias02Dat" optimistic-lock="version" schema="OPS$DESPACHO" table="GUIAS02_DAT">
+    <composite-id class="entidad.Guias02DatId" name="id">
+      <key-property name="c2Guia" type="string">
+        <column length="10" name="C2_GUIA"/>
+      </key-property>
+      <key-property name="c2ItemNo" type="byte">
+        <column name="C2_ITEM_NO" precision="2" scale="0"/>
+      </key-property>
+      <key-property name="c2Codigo" type="string">
+        <column length="15" name="C2_CODIGO"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="bean.entidad.Guias01Dat" fetch="select" insert="false" name="guias01Dat" update="false">
+      <column length="10" name="C2_GUIA" not-null="true"/>
+    </many-to-one>
+    <property name="c2Tipo" type="string">
+      <column length="2" name="C2_TIPO"/>
+    </property>
+    <property name="c2Descripcion" type="string">
+      <column length="40" name="C2_DESCRIPCION"/>
+    </property>
+    <property name="c2Peso" type="big_decimal">
+      <column name="C2_PESO" precision="10" scale="3"/>
+    </property>
+    <property name="c2NoPedido" type="string">
+      <column length="10" name="C2_NO_PEDIDO"/>
+    </property>
+    <property name="c2Unidades" type="java.lang.Integer">
+      <column name="C2_UNIDADES" precision="8" scale="0"/>
+    </property>
+    <property name="c2Items" type="java.lang.Short">
+      <column name="C2_ITEMS" precision="4" scale="0"/>
+    </property>
+    <property name="c2Atados" type="string">
+      <column length="8" name="C2_ATADOS"/>
+    </property>
+    <property name="c2Precio" type="big_decimal">
+      <column name="C2_PRECIO" precision="10" scale="4"/>
+    </property>
+    <property name="c2Alicuota" type="big_decimal">
+      <column name="C2_ALICUOTA" precision="5"/>
+    </property>
+    <property name="c2Fxpeso" type="string">
+      <column length="1" name="C2_FXPESO"/>
+    </property>
+    <property name="c2Fxunidad" type="string">
+      <column length="1" name="C2_FXUNIDAD"/>
+    </property>
+    <property name="c2PesoGuia" type="big_decimal">
+      <column name="C2_PESO_GUIA" precision="15"/>
+    </property>
+  </class>
+</hibernate-mapping>

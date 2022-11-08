@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-nov-2014 11:34:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.Flete04Dat" table="FLETE04_DAT" schema="OPS$DESFLE00" optimistic-lock="version">
+        <composite-id name="id" class="entidad.Flete04DatId">
+            <key-property name="c4FechaRelacion" type="date">
+                <column name="C4_FECHA_RELACION" length="7" />
+            </key-property>
+            <key-property name="c4CodDestino" type="string">
+                <column name="C4_COD_DESTINO" length="3" />
+            </key-property>
+            <key-property name="c4CodSector" type="string">
+                <column name="C4_COD_SECTOR" length="3" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="flete03Dat" class="entidad.Flete03Dat" update="false" insert="false" fetch="select">
+            <column name="C4_FECHA_RELACION" length="7" not-null="true" />
+        </many-to-one>
+        <property name="c4CodPais" type="string">
+            <column name="C4_COD_PAIS" length="3" />
+        </property>
+        <property name="c4CodEstado" type="string">
+            <column name="C4_COD_ESTADO" length="3" not-null="true" />
+        </property>
+        <property name="c4NombreDestino" type="string">
+            <column name="C4_NOMBRE_DESTINO" length="30" not-null="true" />
+        </property>
+        <property name="c4CodPostal" type="string">
+            <column name="C4_COD_POSTAL" length="4" />
+        </property>
+        <property name="c4PrecioTonCamion" type="big_decimal">
+            <column name="C4_PRECIO_TON_CAMION" precision="14" />
+        </property>
+        <property name="c4PrecioTonGandola" type="big_decimal">
+            <column name="C4_PRECIO_TON_GANDOLA" precision="14" />
+        </property>
+        <property name="c4PrecioTonToronto" type="big_decimal">
+            <column name="C4_PRECIO_TON_TORONTO" precision="14" />
+        </property>
+        <property name="c4PrecioTonEspecial" type="big_decimal">
+            <column name="C4_PRECIO_TON_ESPECIAL" precision="14" />
+        </property>
+        <property name="c4CodMonExtCamion" type="string">
+            <column name="C4_COD_MON_EXT_CAMION" length="3" />
+        </property>
+        <property name="c4PrecioTonCamionMe" type="big_decimal">
+            <column name="C4_PRECIO_TON_CAMION_ME" precision="12" />
+        </property>
+        <property name="c4CodMonExtGandola" type="string">
+            <column name="C4_COD_MON_EXT_GANDOLA" length="3" />
+        </property>
+        <property name="c4PrecioTonGandolaMe" type="big_decimal">
+            <column name="C4_PRECIO_TON_GANDOLA_ME" precision="12" />
+        </property>
+        <property name="c4CodMonExtToronto" type="string">
+            <column name="C4_COD_MON_EXT_TORONTO" length="3" />
+        </property>
+        <property name="c4PrecioTonTorontoMe" type="big_decimal">
+            <column name="C4_PRECIO_TON_TORONTO_ME" precision="12" />
+        </property>
+        <property name="c4CodMonExtPrecioEsp" type="string">
+            <column name="C4_COD_MON_EXT_PRECIO_ESP" length="3" />
+        </property>
+        <property name="c4PrecioTonEspecialMe" type="big_decimal">
+            <column name="C4_PRECIO_TON_ESPECIAL_ME" precision="14" />
+        </property>
+    </class>
+</hibernate-mapping>

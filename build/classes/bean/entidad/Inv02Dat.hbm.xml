@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-sep-2014 15:29:49 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Inv02Dat" table="INV02_DAT" schema="OPS$DESINV02">
+        <composite-id name="id" class="bean.entidad.Inv02DatId">
+            <key-property name="c2Codigo" type="string">
+                <column name="C2_CODIGO" length="15" />
+            </key-property>
+            <key-property name="c2Fecha" type="date">
+                <column name="C2_FECHA" length="7" />
+            </key-property>
+        </composite-id>
+        <property name="c2PrecioUnidad" type="big_decimal">
+            <column name="C2_PRECIO_UNIDAD" precision="8" scale="3" />
+        </property>
+        <property name="c2PrecioKgs" type="big_decimal">
+            <column name="C2_PRECIO_KGS" precision="8" scale="3" />
+        </property>
+    </class>
+</hibernate-mapping>

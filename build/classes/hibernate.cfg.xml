@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@193.168.0.59:1521:DES112</property>
+    <property name="hibernate.connection.username">ops$desinv02</property>
+    <property name="hibernate.connection.password">ops$desinv02</property>
+    <mapping resource="bean/entidad/Inv07Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Inv08Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Inv01Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/CxcdDat.hbm.xml"/>
+    <mapping resource="bean/entidad/Inv03Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Inv04Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Inv06Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Inv02Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Guias01Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Guias02Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Flete03Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Flete04Dat.hbm.xml"/>
+    <mapping resource="bean/entidad/Vend01Dat.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

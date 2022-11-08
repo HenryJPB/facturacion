@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-sep-2014 15:29:49 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Inv06Dat" table="INV06_DAT" schema="OPS$DESINV02">
+        <id name="c6Tipo" type="string">
+            <column name="C6_TIPO" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="c6Descripcion" type="string">
+            <column name="C6_DESCRIPCION" length="50" />
+        </property>
+        <property name="c6Ubicacion" type="string">
+            <column name="C6_UBICACION" length="25" />
+        </property>
+        <property name="c6Fxunidad" type="string">
+            <column name="C6_FXUNIDAD" length="1" />
+        </property>
+        <property name="c6Fxpeso" type="string">
+            <column name="C6_FXPESO" length="1" />
+        </property>
+        <property name="c6Lxunidad" type="string">
+            <column name="C6_LXUNIDAD" length="1" />
+        </property>
+        <property name="c6Lxpeso" type="string">
+            <column name="C6_LXPESO" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

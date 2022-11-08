@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-sep-2014 14:23:59 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Inv03Dat" table="INV03_DAT" schema="OPS$DESINV02">
+        <id name="c3Orden" type="string">
+            <column name="C3_ORDEN" length="15" />
+            <generator class="assigned" />
+        </id>
+        <property name="c3Cotizacion" type="string">
+            <column name="C3_COTIZACION" length="15" />
+        </property>
+        <property name="c3CodigoCliente" type="string">
+            <column name="C3_CODIGO_CLIENTE" length="15" />
+        </property>
+        <property name="c3Atencion" type="string">
+            <column name="C3_ATENCION" length="25" />
+        </property>
+        <property name="c3Telefono" type="string">
+            <column name="C3_TELEFONO" length="20" />
+        </property>
+        <property name="c3FechaEntrega" type="date">
+            <column name="C3_FECHA_ENTREGA" length="7" />
+        </property>
+        <property name="c3DirEntrega" type="string">
+            <column name="C3_DIR_ENTREGA" length="25" />
+        </property>
+        <property name="c3FormaPago" type="string">
+            <column name="C3_FORMA_PAGO" length="30" />
+        </property>
+        <property name="c3Observacion1" type="string">
+            <column name="C3_OBSERVACION1" length="30" />
+        </property>
+        <property name="c3Observacion2" type="string">
+            <column name="C3_OBSERVACION2" length="30" />
+        </property>
+        <set name="inv04Dats" table="INV04_DAT" inverse="true" lazy="true" fetch="select" order-by="C4_ORDEN,C4_CODIGO">
+            <key>
+                <column name="C4_ORDEN" length="15" not-null="true" />
+            </key>
+            <one-to-many class="bean.entidad.Inv04Dat" />
+        </set>
+    </class>
+</hibernate-mapping>

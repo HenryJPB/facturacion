@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-nov-2014 11:34:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.Flete03Dat" table="FLETE03_DAT" schema="OPS$DESFLE00" optimistic-lock="version">
+        <id name="c3FechaRelacion" type="date">
+            <column name="C3_FECHA_RELACION" length="7" />
+            <generator class="assigned" />
+        </id>
+        <property name="c3Observacion1" type="string">
+            <column name="C3_OBSERVACION1" length="50" />
+        </property>
+        <property name="c3RepartoTonCamion1" type="java.lang.Short">
+            <column name="C3_REPARTO_TON_CAMION1" precision="3" scale="0" />
+        </property>
+        <property name="c3RepartoPrecioTonCamion1" type="big_decimal">
+            <column name="C3_REPARTO_PRECIO_TON_CAMION1" precision="12" />
+        </property>
+        <property name="c3RepartoTonGandola1" type="java.lang.Short">
+            <column name="C3_REPARTO_TON_GANDOLA1" precision="3" scale="0" />
+        </property>
+        <property name="c3RepartoPrecioTonGandola1" type="big_decimal">
+            <column name="C3_REPARTO_PRECIO_TON_GANDOLA1" precision="12" />
+        </property>
+        <property name="c3RepartoTonToronto1" type="java.lang.Short">
+            <column name="C3_REPARTO_TON_TORONTO1" precision="3" scale="0" />
+        </property>
+        <property name="c3RepartoPrecioTonToronto1" type="big_decimal">
+            <column name="C3_REPARTO_PRECIO_TON_TORONTO1" precision="12" />
+        </property>
+        <set name="flete04Dats" table="FLETE04_DAT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="C4_FECHA_RELACION" length="7" not-null="true" />
+            </key>
+            <one-to-many class="entidad.Flete04Dat" />
+        </set>
+    </class>
+</hibernate-mapping>

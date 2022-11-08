@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-ago-2014 15:06:22 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.CxcdDat" table="CXCD_DAT" schema="OPS$DESINV02">
+        <id name="codigo" type="string">
+            <column name="CODIGO" length="18" />
+            <generator class="assigned" />
+        </id>
+        <property name="codigoContable" type="string">
+            <column name="CODIGO_CONTABLE" length="19" />
+        </property>
+        <property name="nombreCliProv" type="string">
+            <column name="NOMBRE_CLI_PROV" length="50" />
+        </property>
+        <property name="nombreCliProv01" type="string">
+            <column name="NOMBRE_CLI_PROV01" length="50" />
+        </property>
+        <property name="razonSocial" type="string">
+            <column name="RAZON_SOCIAL" length="50" />
+        </property>
+        <property name="direccion1" type="string">
+            <column name="DIRECCION1" length="40" />
+        </property>
+        <property name="direccion2" type="string">
+            <column name="DIRECCION2" length="40" />
+        </property>
+        <property name="direccion3" type="string">
+            <column name="DIRECCION3" length="40" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="TELEFONO" length="12" />
+        </property>
+        <property name="cedula" type="string">
+            <column name="CEDULA" length="20" />
+        </property>
+        <property name="fechaEmisionRif" type="string">
+            <column name="FECHA_EMISION_RIF" length="10" />
+        </property>
+        <property name="fechaVencRif" type="string">
+            <column name="FECHA_VENC_RIF" length="10" />
+        </property>
+        <property name="montoCompras" type="big_decimal">
+            <column name="MONTO_COMPRAS" precision="14" />
+        </property>
+        <property name="limiteCredito" type="big_decimal">
+            <column name="LIMITE_CREDITO" precision="14" />
+        </property>
+        <property name="tipoDeCliente" type="string">
+            <column name="TIPO_DE_CLIENTE" length="1" />
+        </property>
+        <property name="totalDebitos" type="big_decimal">
+            <column name="TOTAL_DEBITOS" precision="14" />
+        </property>
+        <property name="totalCreditos" type="big_decimal">
+            <column name="TOTAL_CREDITOS" precision="14" />
+        </property>
+        <property name="debitosPeriodo" type="big_decimal">
+            <column name="DEBITOS_PERIODO" precision="14" />
+        </property>
+        <property name="creditosPeriodo" type="big_decimal">
+            <column name="CREDITOS_PERIODO" precision="14" />
+        </property>
+        <property name="tipoProveedor" type="string">
+            <column name="TIPO_PROVEEDOR" length="15" />
+        </property>
+        <property name="personaContacto" type="string">
+            <column name="PERSONA_CONTACTO" length="25" />
+        </property>
+        <property name="tiempoEntrega" type="string">
+            <column name="TIEMPO_ENTREGA" length="10" />
+        </property>
+        <property name="origen" type="string">
+            <column name="ORIGEN" length="1" />
+        </property>
+        <property name="ubicGeograf" type="string">
+            <column name="UBIC_GEOGRAF" length="5" />
+        </property>
+        <property name="pais" type="string">
+            <column name="PAIS" length="20" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="20" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="CIUDAD" length="20" />
+        </property>
+        <property name="municipio" type="string">
+            <column name="MUNICIPIO" length="20" />
+        </property>
+        <property name="codPostal" type="string">
+            <column name="COD_POSTAL" length="10" />
+        </property>
+        <property name="contribuyente" type="string">
+            <column name="CONTRIBUYENTE" length="1" />
+        </property>
+        <property name="nit" type="string">
+            <column name="NIT" length="20" />
+        </property>
+        <property name="nroPatente" type="string">
+            <column name="NRO_PATENTE" length="20" />
+        </property>
+        <property name="agenteRetencion" type="string">
+            <column name="AGENTE_RETENCION" length="1" />
+        </property>
+        <property name="fechaActExpediente" type="date">
+            <column name="FECHA_ACT_EXPEDIENTE" length="7" />
+        </property>
+    </class>
+</hibernate-mapping>

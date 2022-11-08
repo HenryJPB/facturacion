@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-sep-2014 14:23:59 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Inv04Dat" table="INV04_DAT" schema="OPS$DESINV02">
+        <composite-id name="id" class="bean.entidad.Inv04DatId">
+            <key-property name="c4Orden" type="string">
+                <column name="C4_ORDEN" length="15" />
+            </key-property>
+            <key-property name="c4Codigo" type="string">
+                <column name="C4_CODIGO" length="12" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="inv03Dat" class="bean.entidad.Inv03Dat" update="false" insert="false" fetch="select">
+            <column name="C4_ORDEN" length="15" not-null="true" />
+        </many-to-one>
+        <property name="c4TipoProd" type="string">
+            <column name="C4_TIPO_PROD" length="2" />
+        </property>
+        <property name="c4Taml" type="big_decimal">
+            <column name="C4_TAML" precision="5" />
+        </property>
+        <property name="c4Tamt" type="big_decimal">
+            <column name="C4_TAMT" precision="5" />
+        </property>
+        <property name="c4Sepl" type="big_decimal">
+            <column name="C4_SEPL" precision="5" />
+        </property>
+        <property name="c4Sept" type="big_decimal">
+            <column name="C4_SEPT" precision="5" />
+        </property>
+        <property name="c4Diaml" type="big_decimal">
+            <column name="C4_DIAML" precision="5" />
+        </property>
+        <property name="c4Diamt" type="big_decimal">
+            <column name="C4_DIAMT" precision="5" />
+        </property>
+        <property name="c4Numl" type="java.lang.Short">
+            <column name="C4_NUML" precision="4" scale="0" />
+        </property>
+        <property name="c4Numt" type="java.lang.Short">
+            <column name="C4_NUMT" precision="4" scale="0" />
+        </property>
+        <property name="c4Sobrl1" type="java.lang.Short">
+            <column name="C4_SOBRL1" precision="3" scale="0" />
+        </property>
+        <property name="c4Sobrl2" type="java.lang.Short">
+            <column name="C4_SOBRL2" precision="3" scale="0" />
+        </property>
+        <property name="c4Sobrt1" type="java.lang.Short">
+            <column name="C4_SOBRT1" precision="3" scale="0" />
+        </property>
+        <property name="c4Sobrt2" type="java.lang.Short">
+            <column name="C4_SOBRT2" precision="3" scale="0" />
+        </property>
+        <property name="c4PesoItem" type="big_decimal">
+            <column name="C4_PESO_ITEM" precision="6" scale="3" />
+        </property>
+        <property name="c4Lam" type="java.lang.Integer">
+            <column name="C4_LAM" precision="6" scale="0" />
+        </property>
+        <property name="c4Bsxton" type="big_decimal">
+            <column name="C4_BSXTON" precision="8" />
+        </property>
+        <property name="c4CodContable" type="string">
+            <column name="C4_COD_CONTABLE" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

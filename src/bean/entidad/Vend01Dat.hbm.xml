@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-ago-2014 12:01:48 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Vend01Dat" table="VEND01_DAT" schema="OPS$DESINV01">
+        <id name="c1CodVendedor" type="string">
+            <column name="C1_COD_VENDEDOR" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="c1Ci" type="string">
+            <column name="C1_CI" length="12" />
+        </property>
+        <property name="c1NombreVend" type="string">
+            <column name="C1_NOMBRE_VEND" length="50" />
+        </property>
+        <property name="c1Direccion1" type="string">
+            <column name="C1_DIRECCION1" length="50" />
+        </property>
+        <property name="c1Direccion2" type="string">
+            <column name="C1_DIRECCION2" length="50" />
+        </property>
+        <property name="c1Telefono" type="string">
+            <column name="C1_TELEFONO" length="14" />
+        </property>
+        <property name="c1Celular" type="string">
+            <column name="C1_CELULAR" length="14" />
+        </property>
+        <property name="c1LimitCredito" type="big_decimal">
+            <column name="C1_LIMIT_CREDITO" precision="14" />
+        </property>
+        <property name="c1CodRuta" type="string">
+            <column name="C1_COD_RUTA" length="3" />
+        </property>
+        <property name="c1Zona" type="string">
+            <column name="C1_ZONA" length="2" />
+        </property>
+        <property name="c1Clave" type="string">
+            <column name="C1_CLAVE" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>

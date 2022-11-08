@@ -1,0 +1,434 @@
+/*-------------------------------------------------------------------------*/
+/*  SISTEMAS DE CONTROL DE INVENTARIO Y FACTURACION                        */
+/*  Nombre del Archivo: ObjInvent.cre                                      */
+/*  Autor:              Henry J. Pulgar B.                                 */
+/*  Fecha Creacion    : 19/05/1993                                         */
+/*  Actualizado      Fecha:      Motivo:                                   */
+/*                   ----------  ----------------------------------------- */
+/*                   n?          ????????????????????????????????????????? */
+/*                   25/02/2011  - Ajustar campo C1_Razon_Social01 de la   */
+/*                                 tabla INV07_DAT                         */
+/*                               - Agregar campo C1_Razon_Social02 a la    */
+/*                                 misma tabla.                            */
+/*-------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------*/
+/*                        Privilegios                                      */
+/* Condicionado al propietario de la tabla y al usuario quien se le otorga */
+/* el privilegio.                                                          */
+/*-------------------------------------------------------------------------*/
+/*
+grant select on cxcd_dat     to ops$export;
+
+grant select on cxce1_dat    to ops$export;
+
+grant select on cxcg_dat     to ops$export;
+
+grant select on contabbf_dat to ops$export
+.                      .  .              .
+........................  ................
+          .                       .
+    Propietario            Usuario granted
+*/
+
+/*-------------------------------------------------------------------------*/
+/*                        Tablas                                           */
+/*-------------------------------------------------------------------------*/
+
+/* Tabla INVENTARIO inicial                  */
+create table INV00_DAT
+( C0_Codigo         VARCHAR2(15),
+  C0_Existencia     NUMBER(12,2) );  /* Existencia inicial */
+
+/* Tabla maestra de productos en inventario */
+create table INV01_DAT
+(  C1_Codigo        VARCHAR2(15) NOT NULL,
+   C1_Tipo          VARCHAR2(2), /* Tipo de producto */
+   C1_Descripcion   VARCHAR2(50),
+   C1_Espesor       NUMBER(6,2),
+   C1_Longitud      NUMBER(6,2),
+   C1_Ancho         NUMBER(6,2),
+   C1_Area          NUMBER(5), 
+   C1_Separacion    VARCHAR2(12), 
+   C1_Items_Atado   NUMBER(5),  
+   C1_Peso          NUMBER(7,3),   /* en Kgs.        */
+   C1_Precio_Actual NUMBER(7,2),   /* Stand by field */
+   C1_Unidad_Medida VARCHAR2(9),
+   C1_Cod_Maquina   VARCHAR2(10),  
+   C1_Observacion   VARCHAR2(50),
+   C1_Unidades      NUMBER(4),
+   C1_Cod_Contable  VARCHAR2(15) );
+
+/* Tabla relacion de precios por producto de inv. */
+create table INV02_DAT
+(  C2_Codigo          VARCHAR2(15),
+   C2_Precio_Unidad   NUMBER(8,3),  /* Precio x Item. */
+   C2_Precio_Kgs      NUMBER(8,3), /* Precio del producto por Kg. */
+   C2_Fecha           DATE );
+
+/* Tabla master -> registro de ordenes de fabricacion */
+create table INV03_DAT
+(  C3_Orden          VARCHAR2(15),
+   C3_Cotizacion     VARCHAR2(15),
+   C3_Codigo_Cliente VARCHAR2(15),
+   C3_Atencion       VARCHAR2(25),
+   /* C3_Domicilio ?? -> deberia estar en la base de datos de cliente */
+   C3_Telefono       VARCHAR2(20),
+   C3_Fecha_Entrega  DATE,
+   C3_Dir_Entrega    VARCHAR2(25),
+   C3_Forma_Pago     VARCHAR2(30),
+   C3_Observacion1   VARCHAR2(30),
+   C3_Observacion2   VARCHAR2(30) );
+
+/* Tabla detail -> regsitro de ordenes de fabricacion */
+create table INV04_DAT
+(  /* L = Longitudinal
+      T = Transversal */
+   C4_ORDEN          VARCHAR2(15),
+   C4_CODIGO         VARCHAR2(12),
+   C4_TIPO_PROD      VARCHAR2(2),
+   C4_TAML           NUMBER(5,2),   /* Tamano en mts */
+   C4_TAMT           NUMBER(5,2),
+   C4_SEPL           NUMBER(5,2),   /* Separacion en mm */
+   C4_SEPT           NUMBER(5,2),
+   C4_DIAML          NUMBER(5,2),   /* Diametro en mm */
+   C4_DIAMT          NUMBER(5,2),
+   C4_NUML           NUMBER(4),     /* Numero de alambres */
+   C4_NUMT           NUMBER(4),
+   C4_SOBRL1         NUMBER(3),     /* Sobrantes en mm */
+   C4_SOBRL2         NUMBER(3),
+   C4_SOBRT1         NUMBER(3),
+   C4_SOBRT2         NUMBER(3),
+   C4_PESO_ITEM      NUMBER(6,3),  
+   C4_LAM            NUMBER(6),    /* Cantidad de lamminas */
+   C4_BSxTON         NUMBER(8,2),
+   C4_Cod_Contable   VARCHAR2(15)      /* Precio Bs x Toneladas */
+   );
+
+/* Tabla transacciones por producto. reg. inf. de producc. */
+create table INV05_DAT
+(  C5_Codigo        VARCHAR2(15),
+   C5_Orden         VARCHAR2(15),
+   C5_Nota          VARCHAR2(15),
+   C5_Fecha         DATE,
+   C5_Tipo_Mov      VARCHAR2(1),     /* E) entrada S)alida */
+   C5_Unidades      NUMBER(8,2),
+   C5_Factura       VARCHAR2(10)  );
+
+/* Tabla tipos de productos */
+create table INV06_DAT
+(  C6_Tipo          VARCHAR2(2),
+   C6_Descripcion   VARCHAR2(50),
+   C6_Ubicacion     VARCHAR2(25),
+   C6_FxUnidad      VARCHAR2(1),     /* Campo Info. para la Emision de la Fac. */
+   C6_FxPeso        VARCHAR2(1),
+   C6_LxUnidad      VARCHAR2(1),
+   C6_LxPeso        VARCHAR2(1),
+   C6_Tipo_Factura  VARCHAR2(1),     /* N>acional, E>Exportacion y S>anidad */
+   C6_Cod_Contable  VARCHAR2(15) );   /*  Idem */
+
+/* Forma: INV15_FRM.        */
+/* Definicion contable por tipo de producto vs Tipo de Facturacion */
+create table INV06_2_DAT
+(   C6_2_Tipo         VARCHAR2(2),
+    C6_2_Tipo_Factura VARCHAR2(1),     /* N>acional, E>xportacion, S>anidad */
+    C6_2_Cod_Contable VARCHAR2(15) );
+
+/* Tabla master de facturas */
+create table INV07_DAT
+(  C7_Factura              VARCHAR2(10) not Null,   
+   C7_Fecha                DATE,
+   C7_Cliente_Especial     VARCHAR2(1),     --  X / Nulo.   
+   C7_Codigo_Cliente       VARCHAR2(10),
+   C7_Razon_Social         VARCHAR2(50), 
+   -- C7_Razon_Social01    VARCHAR2(50), 
+   -- C7_Razon_Social02    VARCHAR2(50),    
+   C7_Rif                  VARCHAR2(20),  
+   C7_Nit                  VARCHAR2(20),   
+   C7_Ncf                  VARCHAR2(20),  -- No. Control Fiscal.     
+   C7_Retirado_Planta      VARCHAR2(1),   -- X=Retirado Planta, Else Transport. 
+   C7_Dir_Fiscal1          VARCHAR2(50),  
+   C7_Dir_Fiscal2          VARCHAR2(50),    
+   C7_Dir_Fiscal3          VARCHAR2(50),      
+   C7_Entrega1             VARCHAR2(40), /* Direccion de entrega */
+   C7_Entrega2             VARCHAR2(40),
+   C7_Entrega3             VARCHAR2(40),
+   C7_Entrega4             VARCHAR2(40),
+   C7_Orden1               VARCHAR2(15), /* No. de orden de fab.1. */
+   C7_Orden2               VARCHAR2(15), /* No. de orden de fab.2. */
+   C7_Financiar            VARCHAR2(1),  /* (S/N) */
+   C7_Condiciones_Pago     VARCHAR2(10),
+   C7_Vendedor             VARCHAR2(2),
+   C7_Nombre               VARCHAR2(25),   /* Nombre Vendedor */
+   C7_Zona                 VARCHAR2(3),
+   C7_Orden_Compra1        VARCHAR2(15),
+   C7_Orden_Compra2        VARCHAR2(15),
+   C7_Pedido1              VARCHAR2(10),   /* No. de pedido */
+   C7_Pedido2              VARCHAR2(10),   /* No. de pedido */
+   C7_Desc_Per_Cent        NUMBER(5,2),   /* Desc. Calculado en porcentaje */
+   C7_Per_Cent_Flete       NUMBER(5,2),     
+   C7_Plazo                NUMBER(3),
+   C7_Guia1                VARCHAR2(18),     /* No. de Guia */
+   C7_Guia2                VARCHAR2(18),     /* No. de Guia */
+   C7_Fecha_Guia           DATE,
+   C7_Monto_flete          NUMBER(12,2),   
+   C7_Reconoci_Flete       NUMBER(12,2),
+   C7_Descuento            NUMBER(12,2),
+   C7_Monto_Ajuste         NUMBER(12,2),  
+   C7_IVM                  NUMBER(12,2),
+   C7_Anticipo             NUMBER(12,2),
+   C7_IVM_Ant              NUMBER(12,2),
+   C7_Cambio_Moneda        NUMBER(7,3),
+   C7_NC                   VARCHAR2(1),     /* Items No Conforme */  
+   C7_Status               VARCHAR2(1)     );
+
+/* Tabla detail de facturas */
+create table INV08_DAT
+( C8_Factura              VARCHAR2(10)  Not null,
+  C8_Item_No              NUMBER(2),   -- Item_No      
+  C8_Codigo               VARCHAR2(15),
+  C8_Tipo                 VARCHAR2(2),
+  C8_Descripcion          VARCHAR2(40),
+  C8_Guia                 VARCHAR2(9),
+  C8_Peso                 NUMBER(10,3),
+  C8_Unidades             NUMBER(8),  /* No. unidades */
+  C8_Precio               NUMBER(13,4),
+  C8_Flete                NUMBER(8,2),
+  C8_FxUnidad             VARCHAR2(1),   
+  C8_FxPeso               VARCHAR2(1),   
+  C8_Peso_Guia            NUMBER(15,2),   
+  C8_Ajuste               NUMBER(15,2));  
+
+  /* Tabla de definiciones contables generales */
+  /* Crear esta tabla y hacer una insercion en vacio ; Ejm: */
+  /* SQL> insert into INV11_DAT ( C11_TIPO_DOC )            */
+  /*      values ( NULL );                                  */
+  create table INV11_DAT
+  ( C11_Tipo_Ant          VARCHAR2(3),
+    C11_Tipo_Doc          VARCHAR2(3),
+    C11_Tipo_CXCE         VARCHAR2(3),  -- Ctas x Cobrar Empleados.   
+    C11_Tipo_CXCO         VARCHAR2(3),  -- Ctas x Cobrar Obreros   
+    C11_Aplic_Ant         VARCHAR2(3),
+    C11_Tipo_Giro         VARCHAR2(3),
+    C11_Reconv_Giro       VARCHAR2(3),
+    C11_Reconoci_Flete    VARCHAR2(15),
+    C11_Ivm               VARCHAR2(15),
+    C11_Anticipo          VARCHAR2(15),
+    C11_Int_Financ        VARCHAR2(15),
+    C11_Ivm_Intereses     VARCHAR2(15),
+    C11_Cobro_Flete       VARCHAR2(15),
+    C11_Cuenta_Transito   VARCHAR2(15) );
+
+  /* Forma INV11.2: Tabla de definicion del codigo contable para desc. */
+  /* segun el tipo de producto                                         */
+  create table INV11_2_DAT
+  ( C11_2_Tipo_Prod       VARCHAR2(3),
+    C11_2_Tipo_Factura    VARCHAR2(1),
+    C11_2_Cod_Contable    VARCHAR2(15) );
+
+  /* Efectos por Cobrar - GIROS       */
+  /* Tabla Master Refinanciar factura */
+  create table INV12_DAT
+  ( C12_Factura           VARCHAR2(10),
+    C12_Fecha_Emision     DATE,
+    C12_Monto_Refinanciar NUMBER(12,2),
+    C12_Interes           NUMBER(5,2),
+    C12_Cant_Giros        NUMBER(2) );
+
+  /* Efectos por Cobrar - GIROS       */
+  /* Tabla Detail Refinanciar factura */
+  create table INV13_DAT
+   ( C13_Factura         VARCHAR2(10),
+     C13_Ref_Giro        VARCHAR2(10),
+     C13_Fecha_Venc      DATE,
+     C13_Capital         NUMBER(12,2),
+     C13_Monto_Int       NUMBER(10,2),
+     C13_Monto_Giro      NUMBER(12,2) );
+
+/*----------------------------- Sinonimos ---------------------------------*/  
+
+  create synonym VEND01_DAT for ops$desinv01.VEND01_DAT;  
+
+/*-------------------------------------------------------------------------*/
+/*                        Indices.cre                                      */
+/*-------------------------------------------------------------------------*/
+
+create unique index INV00_IND on INV00_DAT
+       ( C0_Codigo );
+
+create unique index INV01_IND on INV01_DAT
+       ( C1_CODIGO );
+
+create unique index INV02_IND on INV02_DAT
+       ( C2_CODIGO, C2_FECHA );
+
+create unique index INV03_IND on INV03_DAT
+       ( C3_ORDEN );
+
+create unique index INV04_IND on INV04_DAT
+       ( C4_ORDEN, C4_CODIGO );
+
+create index INV05_IND on INV05_DAT
+       ( C5_CODIGO, C5_ORDEN, C5_FECHA );
+
+create unique index INV06_IND on INV06_DAT
+       ( C6_TIPO );
+
+create unique index INV06_2_IND on INV06_2_DAT
+       ( C6_2_TIPO, C6_2_TIPO_FACTURA );
+
+create unique index INV07_IND on INV07_DAT
+       ( C7_FACTURA );
+
+create unique  index INV08_IND on INV08_DAT
+       ( C8_FACTURA, C8_CODIGO, C8_ITEM_NO );
+
+create unique index INV12_IND on INV12_DAT
+       ( C12_Factura, C12_Fecha_Emision );
+
+create unique index INV13_IND on INV13_DAT
+       ( C13_Factura, C13_Ref_Giro );
+
+create unique index INV11_2_IND on INV11_2_DAT
+       ( C11_2_Tipo_Prod, C11_2_Cod_Contable )
+
+
+/*------------------alter Add: P.K.  (Primary Key)------------------*/
+alter table INV01_DAT
+add   constraint inv01_pk primary key (C1_CODIGO);  
+
+alter table INV02_DAT 
+add   constraint inv02_pk primary key (C2_CODIGO, C2_FECHA);  
+
+alter table INV03_DAT 
+add   constraint inv03_pk primary key (C3_ORDEN);  
+
+alter table INV04_DAT 
+add   constraint inv04_pk primary key (C4_ORDEN,C4_CODIGO);  
+
+alter table INV04_DAT
+add   constraint inv04_fk foreign key (C4_ORDEN)
+      references INV03_DAT(C3_ORDEN); 
+
+alter table INV06_DAT 
+add   constraint inv06_pk primary key (C6_TIPO);  
+
+alter table INV07_DAT
+add   constraint inv07_pk primary key (C7_FACTURA); 
+
+alter table INV08_DAT
+add   constraint inv08_pk primary key (C8_FACTURA, C8_CODIGO, C8_ITEM_NO); 
+
+/* 
+alter table INV08_DAT
+add   constraint inv08_fk foreign key (C8_FACTURA)
+      references INV07_DAT(C7_FACTURA) on update cascade on delete cascade; 
+*/
+
+alter table INV08_DAT
+add   constraint inv08_fk foreign key (C8_FACTURA)
+      references INV07_DAT(C7_FACTURA); 
+
+-- Nota en Brqto al 25/07/2014:  
+-- Resultado: ORA-02437: cannot validate (OPS$DESINV02.SYS_C0056560) -
+-- primary key violated
+
+
+/*------------i-----------Vistas (views) ----------------------------*/  
+
+-- NOTA (Brqto: 03-09-2014):
+--  Las siguientes unidades son utilizadas por open Xava para el   
+--  Fast mantenimiento del Sistema de Facturacion. 
+
+-- Unidad Master: 
+create view Factura     
+as     select 
+       C7_FACTURA as nroFactura, 
+       C7_FECHA   as fecha, 
+       C7_CODIGO_CLIENTE as codCliente, 
+       C7_RAZON_SOCIAL as razonSocial, 
+       C7_RIF as rif
+from   INV07_DAT; 
+
+-- Unidad Detail.    
+create view Factura_detalle
+as     select 
+       C8_FACTURA as factura_nroFactura,  
+       C8_ITEM_NO as itemNo, 
+       C8_CODIGO  as codProd, 
+       C8_TIPO    as tipo, 
+       C8_DESCRIPCION as descripcion, 
+       C8_PESO as peso, 
+       C8_UNIDADES as cantidad, 
+       C8_PRECIO as precio, 
+       C8_FXUNIDAD as fxUnidad, 
+       C8_FXPESO as fxPeso
+from   INV08_DAT;   
+
+/*-------------------------Sinonimos---------------------------------*/  
+
+create synonym FLETE03_DAT for ops$despacho.FLETE03_DAT;   
+
+create synonym FLETE04_DAT for ops$despacho.FLETE04_DAT;   
+
+/*------------------Objects to be granted----------------------------*/  
+
+-- INV01_DAT:  
+grant select         on INV01_DAT to ops$despacho; 
+
+grant select         on INV02_DAT to ops$despacho; 
+
+grant select         on INV01_DAT to ops$desinv01; 
+
+grant select         on INV01_DAT to ops$desinv03; 
+
+grant select         on INV01_DAT to ops$despro03; 
+
+grant select         on INV01_DAT to ops$despro04; 
+
+-- INV07_DAT :
+grant select, update on INV07_DAT to ops$despacho; 
+
+grant select         on INV07_DAT to ops$desinv01; 
+
+grant select         on INV07_DAT to ops$desinv03; 
+
+grant select         on INV07_DAT to ops$condes; 
+
+grant select         on INV07_DAT to ops$condes03; 
+
+grant select         on INV07_DAT to ops$desad06; 
+
+grant select         on INV08_DAT to ops$desinv01; 
+
+grant select         on INV08_DAT to ops$despacho; 
+
+grant select         on INV08_DAT to ops$condes; 
+
+grant select         on INV08_DAT to ops$condes03; 
+
+grant all privileges on INV03_DAT to ops$despro04;
+
+grant all privileges on INV04_DAT to ops$despro04;
+
+grant select on  INV07_DAT to ops$despro04;
+
+grant select on  INV08_DAT to ops$despro04;
+
+grant select on  INV03_DAT to ops$despacho;
+
+grant select on  INV04_DAT to ops$despacho;
+
+grant select on  INV03_DAT to ops$despro03;
+
+grant select on  INV04_DAT to ops$despro03;
+
+grant select on  INV07_DAT to ops$despro03;
+
+grant select on  INV08_DAT to ops$despro03;
+
+grant select on  INV03_DAT to ops$desinv01;
+
+grant select on  INV04_DAT to ops$desinv01;
+
+/*-----------------------EOF(ObjInvent.cre)---------------------------*/  

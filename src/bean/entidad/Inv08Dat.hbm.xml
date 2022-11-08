@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ago-2014 14:55:07 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Inv08Dat" table="INV08_DAT" schema="OPS$DESINV02">
+        <composite-id name="id" class="bean.entidad.Inv08DatId">
+            <key-property name="c8Factura" type="string">
+                <column name="C8_FACTURA" length="10" />
+            </key-property>
+            <key-property name="c8Codigo" type="string">
+                <column name="C8_CODIGO" length="15" />
+            </key-property>
+            <key-property name="c8ItemNo" type="byte">
+                <column name="C8_ITEM_NO" precision="2" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="inv07Dat" class="bean.entidad.Inv07Dat" update="false" insert="false" fetch="select">
+            <column name="C8_FACTURA" length="10" not-null="true" />
+        </many-to-one>
+        <property name="c8Tipo" type="string">
+            <column name="C8_TIPO" length="2" />
+        </property>
+        <property name="c8Descripcion" type="string">
+            <column name="C8_DESCRIPCION" length="40" />
+        </property>
+        <property name="c8Guia" type="string">
+            <column name="C8_GUIA" length="9" />
+        </property>
+        <property name="c8Peso" type="big_decimal">
+            <column name="C8_PESO" precision="10" scale="3" />
+        </property>
+        <property name="c8Unidades" type="java.lang.Integer">
+            <column name="C8_UNIDADES" precision="8" scale="0" />
+        </property>
+        <property name="c8Precio" type="big_decimal">
+            <column name="C8_PRECIO" precision="13" scale="4" />
+        </property>
+        <property name="c8Flete" type="big_decimal">
+            <column name="C8_FLETE" precision="8" />
+        </property>
+        <property name="c8Fxunidad" type="string">
+            <column name="C8_FXUNIDAD" length="1" />
+        </property>
+        <property name="c8Fxpeso" type="string">
+            <column name="C8_FXPESO" length="1" />
+        </property>
+        <property name="c8PesoGuia" type="big_decimal">
+            <column name="C8_PESO_GUIA" precision="15" />
+        </property>
+        <property name="c8Ajuste" type="big_decimal">
+            <column name="C8_AJUSTE" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>

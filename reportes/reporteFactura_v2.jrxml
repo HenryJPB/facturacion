@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteFactura_v2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dec128ad-367e-4d7e-bcbe-69e622b448ba">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="225"/>
+	<parameter name="factura1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[066554]]></defaultValueExpression>
+	</parameter>
+	<parameter name="factura2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[066555]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["./reportes/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select DECODE( C7_CLIENTE_ESPECIAL,
+               'X',C7_RAZON_SOCIAL,
+               NOMBRE_CLI_PROV ) Nombre_Cliente,
+       DECODE( C7_CLIENTE_ESPECIAL,
+               'X',' ',
+               nvl(NOMBRE_CLI_PROV01,' ') ) Nombre_Cliente01,
+       DECODE( C7_CLIENTE_ESPECIAL,
+               'X',C7_DIR_FISCAL1,
+               DIRECCION1 ) Dir_Fiscal1,
+       DECODE( C7_CLIENTE_ESPECIAL,
+               'X',C7_DIR_FISCAL2,
+               DIRECCION2 ) Dir_Fiscal2,
+       DECODE( C7_CLIENTE_ESPECIAL,
+               'X',C7_DIR_FISCAL3,
+                DIRECCION3 ) Dir_Fiscal3,
+       DECODE( C7_CLIENTE_ESPECIAL,
+                'X','RIF: '||C7_RIF,
+                CEDULA ) Rif,
+       DECODE( PERSONA_CONTACTO,
+               Null, Null,
+               DECODE( substr(PERSONA_CONTACTO,1,1),
+                       ' ',Null,
+                       'Licencia A.E: '||PERSONA_CONTACTO ) ) PATENTE,
+               DECODE( PERSONA_CONTACTO,
+               Null, Null,
+               DECODE( substr(PERSONA_CONTACTO,1,1),
+                       ' ',Null,
+                       'Municipio '||':Txt_Municipio' ) ) Municipio,
+       CONTRIBUYENTE,
+       DECODE( C7_CLIENTE_ESPECIAL,
+                'X',C7_NIT,
+                'NIT: '|| DECODE(PERSONA_CONTACTO,
+                                 Null,'----------',
+                                 NIT ) ) NIT,
+       C7_ENTREGA1,nvl(C7_ENTREGA2,' ') as entrega2,nvl(C7_ENTREGA3,' ') as entrega3, nvl(C7_ENTREGA4,' ') as entrega4,
+       C7_CODIGO_CLIENTE,
+       DECODE( C7_ORDEN1,
+               Null, '---------',
+               C7_ORDEN1 ) Orden1 ,
+       NVL(C7_ORDEN2,' ') as orden2, C7_CONDICIONES_PAGO,
+       DECODE( C7_PLAZO,
+               Null, '---',
+               0,    '---',
+               C7_PLAZO ) Plazo,
+       C7_VENDEDOR,
+       DECODE( C7_PEDIDO1,
+               Null, '-------',
+               C7_PEDIDO1 )  Pedido1,
+       DECODE( C7_ORDEN_COMPRA1,
+                Null,'-------',
+                C7_ORDEN_COMPRA1 ) Orden_Compra,
+       C7_PEDIDO2, C7_GUIA1, C7_GUIA2, C7_FECHA_GUIA,
+       decode( C7_PLAZO,
+               null, null,
+               'DIAS') Label_Plazo,
+       C7_FECHA,
+       C7_FECHA +
+       DECODE( C7_PLAZO,
+               Null,0,
+               C7_PLAZO ) as fechaVenc,
+       C7_FACTURA
+from   CXCD_DAT, INV07_DAT
+where  CODIGO = C7_CODIGO_CLIENTE
+and    C7_FACTURA between $P{factura1} and $P{factura2}]]>
+	</queryString>
+	<field name="NOMBRE_CLIENTE" class="java.lang.String"/>
+	<field name="NOMBRE_CLIENTE01" class="java.lang.String"/>
+	<field name="DIR_FISCAL1" class="java.lang.String"/>
+	<field name="DIR_FISCAL2" class="java.lang.String"/>
+	<field name="DIR_FISCAL3" class="java.lang.String"/>
+	<field name="RIF" class="java.lang.String"/>
+	<field name="PATENTE" class="java.lang.String"/>
+	<field name="MUNICIPIO" class="java.lang.String"/>
+	<field name="CONTRIBUYENTE" class="java.lang.String"/>
+	<field name="NIT" class="java.lang.String"/>
+	<field name="C7_ENTREGA1" class="java.lang.String"/>
+	<field name="ENTREGA2" class="java.lang.String"/>
+	<field name="ENTREGA3" class="java.lang.String"/>
+	<field name="ENTREGA4" class="java.lang.String"/>
+	<field name="C7_CODIGO_CLIENTE" class="java.lang.String"/>
+	<field name="ORDEN1" class="java.lang.String"/>
+	<field name="ORDEN2" class="java.lang.String"/>
+	<field name="C7_CONDICIONES_PAGO" class="java.lang.String"/>
+	<field name="PLAZO" class="java.lang.String"/>
+	<field name="C7_VENDEDOR" class="java.lang.String"/>
+	<field name="PEDIDO1" class="java.lang.String"/>
+	<field name="ORDEN_COMPRA" class="java.lang.String"/>
+	<field name="C7_PEDIDO2" class="java.lang.String"/>
+	<field name="C7_GUIA1" class="java.lang.String"/>
+	<field name="C7_GUIA2" class="java.lang.String"/>
+	<field name="C7_FECHA_GUIA" class="java.sql.Timestamp"/>
+	<field name="LABEL_PLAZO" class="java.lang.String"/>
+	<field name="C7_FECHA" class="java.sql.Timestamp"/>
+	<field name="FECHAVENC" class="java.sql.Timestamp"/>
+	<field name="C7_FACTURA" class="java.lang.String"/>
+	<group name="C7_FACTURA">
+		<groupExpression><![CDATA[$F{C7_FACTURA}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7836ba4f-9eb4-488e-8147-a05ac649b7fe" x="12" y="5" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RC-CT4.0-01]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6a7a167-45eb-4014-9c1e-8707426dfe05" x="171" y="5" width="131" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. FACTURA: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="73f424a0-1866-46cf-8557-901cb27e3b01" x="171" y="25" width="131" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA EMISION: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7ec8ed19-8cc3-4dce-b24d-52afe51dd3d6" x="171" y="45" width="131" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA VENCIMIENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a9c00fb1-62f6-482f-9944-2688f224480e" x="302" y="5" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{C7_FACTURA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="fda318e3-1e7d-4363-8062-7dc2a1770462" x="302" y="25" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{C7_FECHA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b5273856-5c7c-46fa-be54-2f7d130eb413" x="302" y="45" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{FECHAVENC}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="32f06091-ce6f-450b-9d0e-b8e339d7657a" x="460" y="5" width="95" height="20"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{C7_FACTURA}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="232" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7482bd50-d0af-4649-bf9c-fe2c57b5a87c" x="0" y="1" width="253" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE Y RAZON SOCIAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="98850fce-1995-4119-8e83-0c07be44939c" x="2" y="62" width="253" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION FISCAL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6fff48ee-590f-46e9-a41c-bc028500a1b7" x="2" y="83" width="253" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIR_FISCAL1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="25547b7a-d18c-4dee-9197-f2ee12593fb3" x="2" y="103" width="253" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIR_FISCAL2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2af70ab0-e972-467b-887c-7f75e734b017" x="2" y="123" width="253" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIR_FISCAL3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7abc5641-c34b-48a8-8f95-825f950c5bba" x="0" y="21" width="253" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="81367c13-5b25-4f6f-afa3-35a2d787c788" x="0" y="41" width="253" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CLIENTE01}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b18b5787-cb8f-4c70-8064-ad941d80a6ea" x="261" y="21" width="75" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RIF/CI. NRO.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8c6920f5-4988-44b1-982a-0638b2219b40" x="336" y="21" width="153" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{RIF}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e578ee70-e7e9-49fb-83cd-5d2727cbc75e" x="7" y="187" width="93" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod. Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="731f1b6d-7c67-4194-87a5-b62c4b603ed9" x="7" y="207" width="93" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden Compra Nro.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ecb40eb2-ffe3-41b0-ab08-b4b50b312ec0" x="274" y="187" width="57" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden Fab.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="457f7f4e-1453-4fd7-89ee-fbc0731a049c" x="402" y="187" width="83" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Guia Despacho:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="35db60e6-b596-4e50-901b-75977dbb81b0" x="100" y="187" width="35" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{C7_CODIGO_CLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4391452d-1d3f-4828-83b9-b4656a5d72e5" x="100" y="207" width="35" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ORDEN_COMPRA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="96eef8fe-1e00-426f-8f3a-a059eeaa6d61" x="336" y="187" width="66" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ORDEN1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c4c05a45-f255-455f-a985-27b81dd940e5" x="485" y="187" width="65" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{C7_GUIA1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="28de9081-c216-4f3f-bbb3-a32ba9869894" mode="Transparent" x="0" y="185" width="555" height="43"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="1325601c-278c-496a-9990-e2ad4bbfba8a" x="261" y="62" width="289" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION ENTREGA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="fb5077d0-e2b7-4db6-9d57-cf2bb21e3e17" x="263" y="83" width="287" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{C7_ENTREGA1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="85d0a399-53da-4c0f-be42-644441ec1f68" x="263" y="103" width="287" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ENTREGA2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="871aac49-d99f-4634-893c-421706821504" x="263" y="123" width="287" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ENTREGA3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bb0fb479-d0dd-47d3-84db-dcf9bf7f797b" x="402" y="207" width="83" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Guia:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="8224b127-25b2-42dd-a2bd-5f1872ab526a" x="485" y="207" width="65" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{C7_FECHA_GUIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="403c4994-9327-402d-b21b-34ee5d3a6be1" x="148" y="187" width="57" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pedido:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="42fb5bba-c7ee-4b17-b86e-0af0dfedfe72" x="209" y="187" width="44" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{PEDIDO1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fdcc47c0-7cc6-4772-bf61-853e51d96ff4" x="209" y="207" width="44" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{C7_PEDIDO2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="32afa879-d517-462c-b2df-e12fa3bbb214" x="112" y="163" width="75" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cond. Pago:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d873c12b-1e9c-4669-a52a-4f4cb7ccda1d" x="187" y="163" width="66" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{C7_CONDICIONES_PAGO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f372d12f-7f1c-4e92-90d3-798e5bd39cbe" x="336" y="207" width="66" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ORDEN2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5677079c-18c5-42f8-bfe7-c16c355b6548" x="261" y="143" width="287" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ENTREGA4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8cabfc4a-aaea-4119-926a-358940c44e7c" x="263" y="163" width="75" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plazao ( dias):]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="75bf606d-9761-4d4c-b93a-9f0ee447c4c1" x="340" y="165" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{PLAZO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="7d209617-1fe7-4816-a71c-b12b3876829a" x="0" y="0" width="555" height="37"/>
+				<subreportParameter name="nroFactura">
+					<subreportParameterExpression><![CDATA[$F{C7_FACTURA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteFactura_detalle.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

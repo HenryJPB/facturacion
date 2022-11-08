@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-ago-2014 14:27:32 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Inv07Dat" table="INV07_DAT" schema="OPS$DESINV02">
+        <id name="c7Factura" type="string">
+            <column name="C7_FACTURA" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="c7Fecha" type="date">
+            <column name="C7_FECHA" length="7" />
+        </property>
+        <property name="c7ClienteEspecial" type="string">
+            <column name="C7_CLIENTE_ESPECIAL" length="1" />
+        </property>
+        <property name="c7CodigoCliente" type="string">
+            <column name="C7_CODIGO_CLIENTE" length="10" />
+        </property>
+        <property name="c7RazonSocial" type="string">
+            <column name="C7_RAZON_SOCIAL" length="50" />
+        </property>
+        <property name="c7Rif" type="string">
+            <column name="C7_RIF" length="20" />
+        </property>
+        <property name="c7Nit" type="string">
+            <column name="C7_NIT" length="20" />
+        </property>
+        <property name="c7Ncf" type="string">
+            <column name="C7_NCF" length="20" />
+        </property>
+        <property name="c7RetiradoPlanta" type="string">
+            <column name="C7_RETIRADO_PLANTA" length="1" />
+        </property>
+        <property name="c7DirFiscal1" type="string">
+            <column name="C7_DIR_FISCAL1" length="50" />
+        </property>
+        <property name="c7DirFiscal2" type="string">
+            <column name="C7_DIR_FISCAL2" length="50" />
+        </property>
+        <property name="c7DirFiscal3" type="string">
+            <column name="C7_DIR_FISCAL3" length="50" />
+        </property>
+        <property name="c7Entrega1" type="string">
+            <column name="C7_ENTREGA1" length="40" />
+        </property>
+        <property name="c7Entrega2" type="string">
+            <column name="C7_ENTREGA2" length="40" />
+        </property>
+        <property name="c7Entrega3" type="string">
+            <column name="C7_ENTREGA3" length="40" />
+        </property>
+        <property name="c7Entrega4" type="string">
+            <column name="C7_ENTREGA4" length="40" />
+        </property>
+        <property name="c7Orden1" type="string">
+            <column name="C7_ORDEN1" length="15" />
+        </property>
+        <property name="c7Orden2" type="string">
+            <column name="C7_ORDEN2" length="15" />
+        </property>
+        <property name="c7Financiar" type="string">
+            <column name="C7_FINANCIAR" length="1" />
+        </property>
+        <property name="c7CondicionesPago" type="string">
+            <column name="C7_CONDICIONES_PAGO" length="10" />
+        </property>
+        <property name="c7Vendedor" type="string">
+            <column name="C7_VENDEDOR" length="2" />
+        </property>
+        <property name="c7Nombre" type="string">
+            <column name="C7_NOMBRE" length="25" />
+        </property>
+        <property name="c7Zona" type="string">
+            <column name="C7_ZONA" length="3" />
+        </property>
+        <property name="c7OrdenCompra1" type="string">
+            <column name="C7_ORDEN_COMPRA1" length="15" />
+        </property>
+        <property name="c7OrdenCompra2" type="string">
+            <column name="C7_ORDEN_COMPRA2" length="15" />
+        </property>
+        <property name="c7Pedido1" type="string">
+            <column name="C7_PEDIDO1" length="10" />
+        </property>
+        <property name="c7Pedido2" type="string">
+            <column name="C7_PEDIDO2" length="10" />
+        </property>
+        <property name="c7DescPerCent" type="big_decimal">
+            <column name="C7_DESC_PER_CENT" precision="5" />
+        </property>
+        <property name="c7PerCentFlete" type="big_decimal">
+            <column name="C7_PER_CENT_FLETE" precision="5" />
+        </property>
+        <property name="c7Plazo" type="java.lang.Short">
+            <column name="C7_PLAZO" precision="3" scale="0" />
+        </property>
+        <property name="c7Guia1" type="string">
+            <column name="C7_GUIA1" length="18" />
+        </property>
+        <property name="c7Guia2" type="string">
+            <column name="C7_GUIA2" length="18" />
+        </property>
+        <property name="c7FechaGuia" type="date">
+            <column name="C7_FECHA_GUIA" length="7" />
+        </property>
+        <property name="c7MontoFlete" type="big_decimal">
+            <column name="C7_MONTO_FLETE" precision="12" />
+        </property>
+        <property name="c7MontoAjuste" type="big_decimal">
+            <column name="C7_MONTO_AJUSTE" precision="12" />
+        </property>
+        <property name="c7ReconociFlete" type="big_decimal">
+            <column name="C7_RECONOCI_FLETE" precision="12" />
+        </property>
+        <property name="c7Descuento" type="big_decimal">
+            <column name="C7_DESCUENTO" precision="12" />
+        </property>
+        <property name="c7Ivm" type="big_decimal">
+            <column name="C7_IVM" precision="12" />
+        </property>
+        <property name="c7Anticipo" type="big_decimal">
+            <column name="C7_ANTICIPO" precision="12" />
+        </property>
+        <property name="c7IvmAnt" type="big_decimal">
+            <column name="C7_IVM_ANT" precision="12" />
+        </property>
+        <property name="c7CambioMoneda" type="big_decimal">
+            <column name="C7_CAMBIO_MONEDA" precision="7" scale="3" />
+        </property>
+        <property name="c7Nc" type="string">
+            <column name="C7_NC" length="1" />
+        </property>
+        <property name="c7Status" type="string">
+            <column name="C7_STATUS" length="1" />
+        </property>
+        <set name="inv08Dats" cascade="all" table="INV08_DAT" inverse="true" lazy="true" fetch="select" order-by="C8_FACTURA,C8_ITEM_NO,C8_CODIGO">
+            <key>
+                <column name="C8_FACTURA" length="10" not-null="true" />
+            </key>
+            <one-to-many class="bean.entidad.Inv08Dat" />
+        </set>
+    </class>
+</hibernate-mapping>

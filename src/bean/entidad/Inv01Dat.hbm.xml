@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-ago-2014 14:27:32 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="bean.entidad.Inv01Dat" table="INV01_DAT" schema="OPS$DESINV02">
+        <id name="c1Codigo" type="string">
+            <column name="C1_CODIGO" length="15" />
+            <generator class="assigned" />
+        </id>
+        <property name="c1Tipo" type="string">
+            <column name="C1_TIPO" length="2" />
+        </property>
+        <property name="c1Descripcion" type="string">
+            <column name="C1_DESCRIPCION" length="50" />
+        </property>
+        <property name="c1Espesor" type="big_decimal">
+            <column name="C1_ESPESOR" precision="6" />
+        </property>
+        <property name="c1Longitud" type="big_decimal">
+            <column name="C1_LONGITUD" precision="6" />
+        </property>
+        <property name="c1Ancho" type="big_decimal">
+            <column name="C1_ANCHO" precision="6" />
+        </property>
+        <property name="c1Area" type="java.lang.Integer">
+            <column name="C1_AREA" precision="5" scale="0" />
+        </property>
+        <property name="c1Separacion" type="string">
+            <column name="C1_SEPARACION" length="12" />
+        </property>
+        <property name="c1ItemsAtado" type="java.lang.Integer">
+            <column name="C1_ITEMS_ATADO" precision="5" scale="0" />
+        </property>
+        <property name="c1Peso" type="big_decimal">
+            <column name="C1_PESO" precision="7" scale="3" />
+        </property>
+        <property name="c1PrecioActual" type="big_decimal">
+            <column name="C1_PRECIO_ACTUAL" precision="7" />
+        </property>
+        <property name="c1UnidadMedida" type="string">
+            <column name="C1_UNIDAD_MEDIDA" length="9" />
+        </property>
+        <property name="c1CodMaquina" type="string">
+            <column name="C1_COD_MAQUINA" length="10" />
+        </property>
+        <property name="c1Observacion" type="string">
+            <column name="C1_OBSERVACION" length="50" />
+        </property>
+        <property name="c1Unidades" type="java.lang.Short">
+            <column name="C1_UNIDADES" precision="4" scale="0" />
+        </property>
+        <property name="c1CodContable" type="string">
+            <column name="C1_COD_CONTABLE" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

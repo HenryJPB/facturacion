@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteFactura_detalle" language="groovy" pageWidth="555" pageHeight="900" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ecff5a99-3e23-44cd-9b4a-35fbec5037b4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nroFactura" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select SUBSTR( DECODE( C8_TIPO,
+               'MP','MP '||C8_CODIGO,
+                C8_TIPO ),1,10) Codigo_Item,
+       C8_CODIGO, C8_GUIA, C8_TIPO,
+       decode( C8_TIPO,
+               'AH',1 ) Count_AH,
+       decode( C8_TIPO,
+               'SF',1 ) Count_SF,
+       decode( C8_TIPO,
+               'ME',1,
+               'ST',1,
+               'M2',1,
+               'NC',1,
+               'R2',1,
+               'A2',1,
+               'C2',1,
+               'CH',1,
+               'AB',1,
+               'AL',1,
+               'SC',1 ) Count_ME,
+       SUBSTR( C8_DESCRIPCION,1,40) Descripcion,
+       DECODE(UPPER(C6_LxUnidad),
+                    'X',C8_UNIDADES,
+                    TO_NUMBER(NULL) ) Unidades,
+       DECODE(UPPER(C6_LxPeso),
+               'X',C8_PESO,
+                TO_NUMBER(NULL) ) Peso_Item,
+       C8_PESO_GUIA  Peso_Guia,
+       C8_PRECIO,
+       ROUND( DECODE(C6_FxPeso,
+                      'X',nvl(TRUNC(C8_UNIDADES*trunc(C8_PESO,3),2)*trunc(C8_PRECIO,3),0),
+                          nvl(TRUNC(C8_UNIDADES*1,2)*trunc(C8_PRECIO,3),0) ),2 ) Total_Precio,
+       NVL(C8_FLETE,0) C_FLETE,
+       ROUND( DECODE(C6_FxPeso,
+                      'X',nvl(TRUNC(C8_UNIDADES*trunc(C8_PESO,3),2)*trunc(C8_PRECIO,3),0),
+                          nvl(TRUNC(C8_UNIDADES*1,2)*trunc(C8_PRECIO,3),0) ),2) Total_Bs,
+       ( decode(C8_CODIGO,'2.1313.45.120',C8_AJUSTE,0) + decode(C8_CODIGO,'2.1515.34.100',C8_AJUSTE,0) ) as AjusteServAsoc,
+       C8_FACTURA
+from   INV08_DAT, INV06_DAT
+where  C8_FACTURA = $P{nroFactura}
+and    C8_TIPO = C6_TIPO
+order  by C8_ITEM_NO, C8_TIPO, C8_CODIGO]]>
+	</queryString>
+	<field name="CODIGO_ITEM" class="java.lang.String"/>
+	<field name="C8_CODIGO" class="java.lang.String"/>
+	<field name="C8_GUIA" class="java.lang.String"/>
+	<field name="C8_TIPO" class="java.lang.String"/>
+	<field name="COUNT_AH" class="java.math.BigDecimal"/>
+	<field name="COUNT_SF" class="java.math.BigDecimal"/>
+	<field name="COUNT_ME" class="java.math.BigDecimal"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="UNIDADES" class="java.math.BigDecimal"/>
+	<field name="PESO_ITEM" class="java.math.BigDecimal"/>
+	<field name="PESO_GUIA" class="java.math.BigDecimal"/>
+	<field name="C8_PRECIO" class="java.math.BigDecimal"/>
+	<field name="TOTAL_PRECIO" class="java.math.BigDecimal"/>
+	<field name="C_FLETE" class="java.math.BigDecimal"/>
+	<field name="TOTAL_BS" class="java.math.BigDecimal"/>
+	<field name="AJUSTESERVASOC" class="java.math.BigDecimal"/>
+	<field name="C8_FACTURA" class="java.lang.String"/>
+	<group name="C8_FACTURA">
+		<groupExpression><![CDATA[$F{C8_FACTURA}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="34">
+			<staticText>
+				<reportElement x="233" y="0" width="29" height="13" uuid="ec5f228e-ec86-4378-94cf-d2bdf510554e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="0" width="25" height="14" uuid="0448206b-ee38-4707-95c3-e6a9f2d780b3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="16" width="38" height="14" uuid="fa829230-fe33-4cc4-ba1b-ef581e0ed353"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Asoc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="0" width="38" height="14" uuid="1aae01fa-700b-47b4-b6eb-38933d375873"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="17" width="200" height="14" uuid="7d3dd7e5-ada0-4c0a-af96-8b305b116845"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion/Especificaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="16" width="29" height="13" uuid="4d5f667d-6077-4c47-a497-2e943aba5219"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unid]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="-1" width="88" height="14" uuid="9c7e19ac-03e3-4c20-96b6-5fbdfca180cb"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[***]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="0" width="42" height="14" uuid="b7e05ed6-6bb9-4227-af7a-71b6690a7142"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso/pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="16" width="25" height="14" uuid="66fb4461-f353-432f-82a2-3179e65e1975"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prod]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="-1" width="49" height="14" uuid="a417982f-f2be-41b8-a7f8-e21da43bbc4b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[  **]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="30" width="784" height="1" uuid="02bd7c42-c994-46a7-a67f-e25a1f245611"/>
+			</line>
+			<staticText>
+				<reportElement x="359" y="0" width="54" height="14" uuid="563e4256-ece4-487b-81fa-c3657fa0acfc"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="16" width="42" height="14" uuid="2a17d55c-f51b-4bd3-beec-ec5661ee20bf"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[kgs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="14" width="49" height="14" uuid="21eeb0c7-ede2-4392-9fbe-6a2d186678e3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="15" width="65" height="14" uuid="c9735cfd-98e0-446d-8eed-ece64983add5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Guia ( kgs )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="0" width="59" height="20" uuid="f590728f-8fb5-4dcc-892d-ffdf527f9ae5"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="0" width="21" height="15" uuid="dbb72acd-8676-4cef-9ad6-2ead75e9f079"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{C8_TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="0" width="200" height="15" uuid="b89a235c-735a-4a44-ba14-1c631dfc39db"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="1" width="29" height="15" uuid="943fd71b-31cd-4c29-801b-46c5e30c8286"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{UNIDADES}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.000">
+				<reportElement x="266" y="1" width="42" height="15" uuid="962d2564-abe7-44cc-8204-ed9e68d2c908"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{PESO_ITEM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="316" y="0" width="39" height="15" uuid="7e3b4610-f90e-4dbd-b981-a5d81e9e5fd7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{C8_PRECIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="359" y="0" width="54" height="15" uuid="7255d800-d697-46e9-b935-d7aece860cba"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{PESO_GUIA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="424" y="1" width="38" height="15" uuid="eec4ca5f-9dd2-4b01-8651-f381e2368068"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{AJUSTESERVASOC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="479" y="0" width="55" height="15" uuid="6e1cdca9-a528-410e-a81b-b8b93ffe9b24"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_BS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="222" y="10" width="151" height="20" uuid="b39235c1-6ac6-416b-9c39-6ddf3104ec3a"/>
+				<text><![CDATA[////Detalle al pie de la pg////]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="222" y="0" width="151" height="20" uuid="ff8a2df8-bdcc-4329-b6b4-ba692776bddf"/>
+				<text><![CDATA[/// Sumatoria ///]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

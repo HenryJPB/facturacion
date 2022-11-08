@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-oct-2014 12:18:57 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="bean.entidad.Guias01Dat" optimistic-lock="version" schema="OPS$DESPACHO" table="GUIAS01_DAT">
+    <id name="c1Guia" type="string">
+      <column length="10" name="C1_GUIA"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="c1FechaGuia" type="date">
+      <column length="7" name="C1_FECHA_GUIA"/>
+    </property>
+    <property name="c1ClienteEspecial" type="string">
+      <column length="1" name="C1_CLIENTE_ESPECIAL"/>
+    </property>
+    <property name="c1CodigoCliente" type="string">
+      <column length="10" name="C1_CODIGO_CLIENTE"/>
+    </property>
+    <property name="c1RazonSocial" type="string">
+      <column length="50" name="C1_RAZON_SOCIAL"/>
+    </property>
+    <property name="c1Rif" type="string">
+      <column length="20" name="C1_RIF"/>
+    </property>
+    <property name="c1Nit" type="string">
+      <column length="20" name="C1_NIT"/>
+    </property>
+    <property name="c1Ncf" type="string">
+      <column length="20" name="C1_NCF"/>
+    </property>
+    <property name="c1DirFiscal1" type="string">
+      <column length="40" name="C1_DIR_FISCAL1"/>
+    </property>
+    <property name="c1DirFiscal2" type="string">
+      <column length="40" name="C1_DIR_FISCAL2"/>
+    </property>
+    <property name="c1DirFiscal3" type="string">
+      <column length="40" name="C1_DIR_FISCAL3"/>
+    </property>
+    <property name="c1RetiradoPlanta" type="string">
+      <column length="1" name="C1_RETIRADO_PLANTA"/>
+    </property>
+    <property name="c1Entrega1" type="string">
+      <column length="30" name="C1_ENTREGA1"/>
+    </property>
+    <property name="c1Entrega2" type="string">
+      <column length="30" name="C1_ENTREGA2"/>
+    </property>
+    <property name="c1Entrega3" type="string">
+      <column length="30" name="C1_ENTREGA3"/>
+    </property>
+    <property name="c1Entrega4" type="string">
+      <column length="30" name="C1_ENTREGA4"/>
+    </property>
+    <property name="c1OrdenCompra" type="string">
+      <column length="15" name="C1_ORDEN_COMPRA"/>
+    </property>
+    <property name="c1Pedido1" type="string">
+      <column length="6" name="C1_PEDIDO1"/>
+    </property>
+    <property name="c1Pedido2" type="string">
+      <column length="6" name="C1_PEDIDO2"/>
+    </property>
+    <property name="c1Pedido3" type="string">
+      <column length="6" name="C1_PEDIDO3"/>
+    </property>
+    <property name="c1Pedido4" type="string">
+      <column length="6" name="C1_PEDIDO4"/>
+    </property>
+    <property name="c1Pedido5" type="string">
+      <column length="6" name="C1_PEDIDO5"/>
+    </property>
+    <property name="c1Pedido6" type="string">
+      <column length="6" name="C1_PEDIDO6"/>
+    </property>
+    <property name="c1Orden1" type="string">
+      <column length="15" name="C1_ORDEN1"/>
+    </property>
+    <property name="c1Orden2" type="string">
+      <column length="15" name="C1_ORDEN2"/>
+    </property>
+    <property name="c1FormaPago" type="string">
+      <column length="1" name="C1_FORMA_PAGO"/>
+    </property>
+    <property name="c1Plazo" type="java.lang.Short">
+      <column name="C1_PLAZO" precision="3" scale="0"/>
+    </property>
+    <property name="c1Vendedor" type="string">
+      <column length="2" name="C1_VENDEDOR"/>
+    </property>
+    <property name="c1NombreVendedor" type="string">
+      <column length="25" name="C1_NOMBRE_VENDEDOR"/>
+    </property>
+    <property name="c1Zona" type="string">
+      <column length="3" name="C1_ZONA"/>
+    </property>
+    <property name="c1Alicuota" type="big_decimal">
+      <column name="C1_ALICUOTA" precision="5"/>
+    </property>
+    <property name="c1Factura" type="string">
+      <column length="10" name="C1_FACTURA"/>
+    </property>
+    <property name="c1FechaFactura" type="date">
+      <column length="7" name="C1_FECHA_FACTURA"/>
+    </property>
+    <property name="c1NombreChofer" type="string">
+      <column length="30" name="C1_NOMBRE_CHOFER"/>
+    </property>
+    <property name="c1CiChofer" type="string">
+      <column length="14" name="C1_CI_CHOFER"/>
+    </property>
+    <property name="c1CodTransp" type="string">
+      <column length="4" name="C1_COD_TRANSP"/>
+    </property>
+    <property name="c1NombreTransp" type="string">
+      <column length="30" name="C1_NOMBRE_TRANSP"/>
+    </property>
+    <property name="c1TipoTransporte" type="string">
+      <column length="1" name="C1_TIPO_TRANSPORTE"/>
+    </property>
+    <property name="c1CodCamion" type="string">
+      <column length="10" name="C1_COD_CAMION"/>
+    </property>
+    <property name="c1TipoCamion" type="string">
+      <column length="15" name="C1_TIPO_CAMION"/>
+    </property>
+    <property name="c1NoEjes" type="string">
+      <column length="15" name="C1_NO_EJES"/>
+    </property>
+    <property name="c1Capacidad" type="big_decimal">
+      <column name="C1_CAPACIDAD" precision="10"/>
+    </property>
+    <property name="c1PlacaChuto" type="string">
+      <column length="10" name="C1_PLACA_CHUTO"/>
+    </property>
+    <property name="c1PlacaBatea" type="string">
+      <column length="10" name="C1_PLACA_BATEA"/>
+    </property>
+    <property name="c1FechaRelacion" type="date">
+      <column length="7" name="C1_FECHA_RELACION"/>
+    </property>
+    <property name="c1CodDestino" type="string">
+      <column length="3" name="C1_COD_DESTINO"/>
+    </property>
+    <property name="c1CodSector" type="string">
+      <column length="3" name="C1_COD_SECTOR"/>
+    </property>
+    <property name="c1NombreDestino" type="string">
+      <column length="30" name="C1_NOMBRE_DESTINO"/>
+    </property>
+    <property name="c1Estado" type="string">
+      <column length="20" name="C1_ESTADO"/>
+    </property>
+    <property name="c1GuiaReparto" type="string">
+      <column length="1" name="C1_GUIA_REPARTO"/>
+    </property>
+    <property name="c1GuiaOrigenReparto" type="string">
+      <column length="10" name="C1_GUIA_ORIGEN_REPARTO"/>
+    </property>
+    <property name="c1SerialTicket1" type="string">
+      <column length="10" name="C1_SERIAL_TICKET1"/>
+    </property>
+    <property name="c1PesoTara" type="big_decimal">
+      <column name="C1_PESO_TARA" precision="12"/>
+    </property>
+    <property name="c1SerialTicket2" type="string">
+      <column length="10" name="C1_SERIAL_TICKET2"/>
+    </property>
+    <property name="c1PesoBruto" type="big_decimal">
+      <column name="C1_PESO_BRUTO" precision="12"/>
+    </property>
+    <property name="c1Status" type="string">
+      <column length="1" name="C1_STATUS"/>
+    </property>
+    <property name="c1Observacion" type="string">
+      <column length="60" name="C1_OBSERVACION"/>
+    </property>
+    <property name="c1ObservacionRomana1" type="string">
+      <column length="60" name="C1_OBSERVACION_ROMANA1"/>
+    </property>
+    <property name="c1FleteProcesado" type="string">
+      <column length="1" name="C1_FLETE_PROCESADO"/>
+    </property>
+    <set cascade="all" fetch="select" inverse="true" lazy="true" name="guias02Dats" order-by="C2_GUIA,C2_ITEM_NO,C2_CODIGO" table="GUIAS02_DAT">
+      <key>
+        <column length="10" name="C2_GUIA" not-null="true"/>
+      </key>
+      <one-to-many class="entidad.Guias02Dat"/>
+    </set>
+  </class>
+</hibernate-mapping>
